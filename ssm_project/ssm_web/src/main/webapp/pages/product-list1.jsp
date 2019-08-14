@@ -243,7 +243,7 @@
                         <!--数据列表/-->
 
                         <!--工具栏-->
-                        <div class="pull-left">
+                       <%-- <div class="pull-left">
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default" title="新建"><i
@@ -263,13 +263,13 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="box-tools pull-right">
+                        </div>--%>
+                       <%-- <div class="box-tools pull-right">
                             <div class="has-feedback">
                                 <input type="text" class="form-control input-sm" placeholder="搜索">
                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
                             </div>
-                        </div>
+                        </div>--%>
                         <!--工具栏/-->
 
                     </div>

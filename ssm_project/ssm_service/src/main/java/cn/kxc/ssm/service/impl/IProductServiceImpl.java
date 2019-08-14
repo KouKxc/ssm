@@ -11,11 +11,27 @@ import java.util.List;
 @Service
 @Transactional
 public class IProductServiceImpl implements IProductService {
-
+    /**注入service*/
     @Autowired
     private IProductDao productDao;
+
+    /**
+     * 查询所有
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Product> findAll() throws Exception {
         return productDao.findAll();
+    }
+
+    /**
+     * 添加数据
+     * @param product
+     * @throws Exception
+     */
+    @Override
+    public void save(Product product) throws Exception {
+        productDao.save(product);
     }
 }
