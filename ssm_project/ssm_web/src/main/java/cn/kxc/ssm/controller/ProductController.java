@@ -28,7 +28,7 @@ public class ProductController {
         return "redirect:findAll.do";
     }
     /**
-     * 查询全部产品 未分页版
+     * 查询全部产品
      * @return
      * @throws Exception
      */

@@ -1,5 +1,6 @@
+<%@ page import="com.github.pagehelper.PageInfo" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -242,7 +243,7 @@
 								<tbody>
 
 
-									<c:forEach items="${ordersList}" var="orders">
+									<c:forEach items="${pageInfo.list}" var="orders">
 
 										<tr>
 											<td><input name="ids" type="checkbox"></td>
@@ -274,6 +275,8 @@
 							<!--数据列表/-->
 
 							<!--工具栏-->
+							<%--
+
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
@@ -302,6 +305,8 @@
 										class="glyphicon glyphicon-search form-control-feedback"></span>
 								</div>
 							</div>
+
+							--%>
 							<!--工具栏/-->
 
 						</div>
@@ -314,14 +319,18 @@
 					<!-- .box-footer-->
                 <div class="box-footer">
                     <div class="pull-left">
-                        <div class="form-group form-inline">
-                            总共2 页，共14 条数据。 每页
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                        <div class="form-group form-inline" id="page_div">
+                            总共${pageInfo.pages}页，共${pageInfo.total}条数据。 每页
+                            <select class="form-control" id="changePageSize" onchange="changePageSize()">
+								<c:forEach begin="1" end="5" var="i">
+									<c:if test="${pageInfo.pageSize == i}">
+										<option selected>${i}</option>
+									</c:if>
+									<c:if test="${pageInfo.pageSize != i}">
+										<option>${i}</option>
+									</c:if>
+								</c:forEach>
+
                             </select> 条
                         </div>
                     </div>
@@ -329,17 +338,43 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="#" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath}/orders/findAll.do?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
+
+                            <li><a href="${pageContext.request.contextPath}/orders/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
+
+							<%
+								PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
+								int pages = pageInfo.getPages();
+								int pageNum = pageInfo.getPageNum();
+								int start = 1;
+								int end = pages;
+								if (pages > 10) {
+									end = 10;
+									start = pageNum-5;
+									end = pageNum + 4;
+									if (start <= 0) {
+										start = 1;
+										end = 10;
+									}else if (end > pages) {
+										end = pages;
+										start = end - 9;
+									}
+								}
+								request.setAttribute("start", start);
+								request.setAttribute("end",end);
+
+							%>
+<%--                           <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">--%>
+                           <c:forEach begin="${start}" end="${end}" var="pageNum">
+							   <li><a href="${pageContext.request.contextPath}/orders/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
+						   </c:forEach>
+
+
+
+                            <li><a href="${pageContext.request.contextPath}/orders/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a></li>
                             <li>
-                                <a href="#" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath}/orders/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
@@ -460,14 +495,15 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+
 		function changePageSize() {
 			//获取下拉框的值
 			var pageSize = $("#changePageSize").val();
 
 			//向服务器发送请求，改变没页显示条数
-			location.href = "${pageContext.request.contextPath}/orders/findAll.do?page=1&pageSize="
-					+ pageSize;
+			location.href = "${pageContext.request.contextPath}/orders/findAll.do?page=1&size=" + pageSize;
 		}
+
 		$(document).ready(function() {
 			// 选择框
 			$(".select2").select2();
