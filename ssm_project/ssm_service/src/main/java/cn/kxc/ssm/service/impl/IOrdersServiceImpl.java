@@ -15,11 +15,29 @@ public class IOrdersServiceImpl implements IOrdersService {
     @Autowired
     private IOrdersDao ordersDao;
 
-
+    /**
+     * 关于查询全部及分页显示
+     * @param page
+     * @param size
+     * @return
+     * @throws Exception
+     */
+    @Override
     public List<Orders> findAll(int page, int size) throws Exception {
 
         //参数pageNum 是页码值   参数pageSize 代表是每页显示条数
         PageHelper.startPage(page, size);
         return ordersDao.findAll();
+    }
+
+    /**
+     * 展示订单信息
+     * @param ordersId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Orders findById(String ordersId) throws Exception{
+        return ordersDao.findById(ordersId);
     }
 }

@@ -10,6 +10,6 @@ public interface IMemberDao {
      * @return
      * @throws Exception
      */
-    @Select("select * from member where id = #{id}")
+    @Select("select * from member where id=#{id}")
     Member findById(String id) throws Exception;
 }
