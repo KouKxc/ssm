@@ -319,7 +319,7 @@
 					<!-- .box-footer-->
                 <div class="box-footer">
                     <div class="pull-left">
-                        <div class="form-group form-inline" id="page_div">
+                        <div class="form-group form-inline">
                             总共${pageInfo.pages}页，共${pageInfo.total}条数据。 每页
                             <select class="form-control" id="changePageSize" onchange="changePageSize()">
 								<c:forEach begin="1" end="5" var="i">

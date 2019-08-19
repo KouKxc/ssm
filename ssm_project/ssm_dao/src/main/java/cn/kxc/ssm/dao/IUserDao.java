@@ -1,5 +1,6 @@
 package cn.kxc.ssm.dao;
 
+import cn.kxc.ssm.domain.Role;
 import cn.kxc.ssm.domain.UserInfo;
 import org.apache.ibatis.annotations.*;
 
@@ -49,4 +50,20 @@ public interface IUserDao {
             @Result(property = "roles",column = "id",javaType = java.util.List.class,many = @Many(select = "cn.kxc.ssm.dao.IRoleDao.findRoleByUserId"))
     })
     UserInfo findById(String id) throws Exception;
+
+    /**
+     * 查询用户没有的角色
+     * @param userId
+     * @return
+     */
+    @Select("select * from role where id not in (select roleId from users_role where userId=#{userId})")
+    List<Role> findOtherRoles(String userId);
+
+    /**
+     * 给用户添加角色
+     * @param userId
+     * @param roleId
+     */
+    @Insert("insert into users_role(userId,roleId) values(#{userId},#{roleId})")
+    void addRoleToUser(@Param("userId") String userId, @Param("roleId") String roleId);
 }

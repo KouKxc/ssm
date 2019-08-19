@@ -1,5 +1,6 @@
 package cn.kxc.ssm.service;
 
+import cn.kxc.ssm.domain.Role;
 import cn.kxc.ssm.domain.UserInfo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -12,5 +13,10 @@ public interface IUserService extends UserDetailsService {
 
     void save(UserInfo userInfo) throws Exception;
 
-    UserInfo finById(String id) throws Exception;
+    UserInfo findById(String id) throws Exception;
+
+
+    List<Role> findOtherRoles(String userId);
+
+    void addRoleToUser(String userId, String[] roleIds) throws Exception;
 }

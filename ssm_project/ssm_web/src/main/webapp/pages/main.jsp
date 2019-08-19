@@ -7,7 +7,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>ITCAST - AdminLTE2定制版</title>
+<title>首页</title>
+	<link type="text/css" rel="stylesheet"
+		  href="https://www.cnblogs.com/blog/customcss/365887.css?v=&#x2B;bym/LBRtCjKRh92PTHP/KYYlMo="/>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 
@@ -158,7 +160,8 @@
 		<!-- 底部导航 /-->
 
 	</div>
-
+	<div class="snow foreground"></div>
+	<div class="snow background"></div>
 	<script
 		src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script
